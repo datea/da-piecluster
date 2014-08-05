@@ -90,6 +90,7 @@ daPiecluster.service( 'Piecluster', function Piecluster( config ) {
 	return { clusterSizeRange : clusterSizeRange
 	       , serializeXmlNode : serializeXmlNode
 	       , makeSVGPie       : makeSVGPie
+	       , config           : config
 	       };
 } );
 

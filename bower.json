@@ -2,7 +2,7 @@
 	"author": "Datea.pe",
 	"name": "da-piecluster",
 	"description": "Custom cluster marker for the datea.pe project",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"homepage": "https://github.com/lafactura/da-piecluster",
 	"repository": {
 		"type": "git",
