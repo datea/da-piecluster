@@ -40,6 +40,7 @@
 
 			svg = document.createElementNS( d3.ns.prefix.svg, 'svg' );
 			vis = d3.select( svg ).data( [ givens.data ] )
+			  .attr( 'class', 'datea-svg-cluster' )
 			  .attr( 'width', givens.d )
 			  .attr( 'height', givens.d )
 			  .append( 'svg:g' )
@@ -57,6 +58,9 @@
 				} else {
 					return secondaryTags[a.data.tag].color;
 				}
+			})
+			.attr( 'data-svg-slice-id', function ( a ) {
+				return a.data.ids;
 			})
 			.attr( 'd', arc )
 			.attr( 'opacity', 0.75 );
@@ -90,7 +94,7 @@
 		return { clusterSizeRange : clusterSizeRange
 		       , serializeXmlNode : serializeXmlNode
 		       , makeSVGPie       : makeSVGPie
-		       , config           : pieclusterConfig
+		       , pieclusterConfig : pieclusterConfig
 		       };
 	} );
 
