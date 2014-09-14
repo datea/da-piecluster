@@ -53,7 +53,7 @@
 			arcs = vis.selectAll( 'g.slice' ).data( pie ).enter().append( 'svg:g' ).attr( 'class', 'slice' );
 			arcs.append( 'svg:path' )
 			.attr( 'fill', function ( a ){
-				if ( ( campaign && campaign.secondary_tags.length ) || ( tags && tags.length ) === 0 ) {
+				if ( ( campaign && !campaign.secondary_tags.length ) || ( tags && tags.length ) === 0 ) {
 					return pieclusterConfig.defaultColor;
 				} else if ( a.data.tag === 'Otros' ) {
 					return pieclusterConfig.defaultColor1;
