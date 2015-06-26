@@ -19,12 +19,18 @@
 		var clusterSizeRange
 		  , serializeXmlNode
 		  , makeSVGPie
+		  , initSizeRange
 		  ;
 
-		clusterSizeRange = d3.scale.linear()
-		  .domain( [0, 100] )
-		  .range( [50, 80] )
-		  .clamp( true );
+		initSizeRange = function(domain, range) {
+			if (!domain) domain = [0,100];
+			if (!range) range = [50,80];
+			clusterSizeRange = d3.scale.linear()
+			  .domain( domain )
+			  .range( range )
+			  .clamp( true );
+		}
+		initSizeRange();
 
 		makeSVGPie = function ( givens ) {
 			var svg
@@ -35,10 +41,14 @@
 			  , campaign
 			  , tags
 			  , secondaryTags
-			  ;
+			  , opacity
+			;
+
 			campaign      = givens && givens.campaign;
 			tags          = givens && givens.tags;
 			secondaryTags = givens && givens.secondaryTags;
+			opacity 	  = givens.opacity || 0.75;
+			
 
 			svg = document.createElementNS( d3.ns.prefix.svg, 'svg' );
 			vis = d3.select( svg ).data( [ givens.data ] )
@@ -65,7 +75,7 @@
 				return a.data.ids;
 			})
 			.attr( 'd', arc )
-			.attr( 'opacity', 0.75 );
+			.attr( 'opacity', opacity );
 
 			vis.append( 'circle' )
 			   .attr( 'fill', '#fff' )
@@ -73,13 +83,15 @@
 			   .attr( 'cx', 0 )
 			   .attr( 'cy', 0 );
 
-			vis.append( 'text' )
-			   .attr( 'x', 0 )
-			   .attr( 'y', 0 )
-			   .attr( 'class', 'cpie-label' )
-			   .attr( 'text-anchor', 'middle' )
-			   .attr( 'dy', '.3em' )
-			   .text( givens.n );
+			if (given.n > 1) {
+				vis.append( 'text' )
+				   .attr( 'x', 0 )
+				   .attr( 'y', 0 )
+				   .attr( 'class', 'cpie-label' )
+				   .attr( 'text-anchor', 'middle' )
+				   .attr( 'dy', '.3em' )
+				   .text( givens.n );
+			}
 
 			return serializeXmlNode( svg );
 		};
@@ -94,6 +106,7 @@
 		};
 
 		return { clusterSizeRange : clusterSizeRange
+			   , initSizeRange    : initSizeRange
 		       , serializeXmlNode : serializeXmlNode
 		       , makeSVGPie       : makeSVGPie
 		       , pieclusterConfig : pieclusterConfig
