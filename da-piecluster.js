@@ -25,6 +25,7 @@
 		initSizeRange = function(domain, range) {
 			if (!domain) domain = [0,100];
 			if (!range) range = [50,80];
+			
 			clusterSizeRange = d3.scale.linear()
 			  .domain( domain )
 			  .range( range )
@@ -77,19 +78,19 @@
 			.attr( 'd', arc )
 			.attr( 'opacity', opacity );
 
-			vis.append( 'circle' )
-			   .attr( 'fill', '#fff' )
-			   .attr( 'r', givens.r / 2.2 )
-			   .attr( 'cx', 0 )
-			   .attr( 'cy', 0 );
+			if (givens.n > 1) {
+				vis.append( 'circle' )
+				   .attr( 'fill', '#fff' )
+				   .attr( 'r', givens.r / 2.2 )
+				   .attr( 'cx', 0 )
+				   .attr( 'cy', 0 );
 
-			if (given.n > 1) {
 				vis.append( 'text' )
 				   .attr( 'x', 0 )
 				   .attr( 'y', 0 )
 				   .attr( 'class', 'cpie-label' )
 				   .attr( 'text-anchor', 'middle' )
-				   .attr( 'dy', '.3em' )
+				   .attr( 'dy', '.33em' )
 				   .text( givens.n );
 			}
 
